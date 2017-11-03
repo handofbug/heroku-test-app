@@ -4,7 +4,7 @@ var app = express();
 app.set('port', (process.env.PORT || 5000));
 
 app.get('/', function(request, response) {
-  response.end('hell');
+  response.end('hello');
 });
 
 app.listen(app.get('port2'), function() {
