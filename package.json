@@ -18,9 +18,11 @@
   },
   "homepage": "https://github.com/handofbug/heroku-test-app#readme",
   "dependencies": {
+    "axios": "^0.17.0",
     "express": "^4.16.2",
     "monk": "^6.0.5",
     "request": "^2.83.0",
-    "tape": "^4.8.0"
+    "tape": "^4.8.0",
+    "ws": "^3.2.0"
   }
 }
