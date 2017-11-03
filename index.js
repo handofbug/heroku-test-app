@@ -1,11 +1,9 @@
-process.env.DB_USER = 'test';
-process.env.DB_PASS = 'test';
-var db = require('monk')(process.env.DB_USER + ':' + process.env.DB_PASS + '@ds245715.mlab.com:45715/heroku');
+var db = require('monk')((process.env.DB_USER || 'test') + ':' + (process.env.DB_PASS || 'test') + '@ds245715.mlab.com:45715/heroku');
 var users = db.get('test');
 var ia = 567438;
 //
 var express = require('express');
-var http = require('http');
+var https = require('https');
 var WebSocketServer = require("ws").Server;
 
 
@@ -15,15 +13,15 @@ var requestAgent = require('request');
 
 app.get('/', function (request, response) {
     users.find({}).then((data) => {
-        response.end(JSON.stringify(data));
+        response.end(JSON.stringify(data) + process.env.PORT);
     });
 });
 
 app.get('/api', function (request, response) {
     requestAgent('https://finance.tut.by/news' + ia + '.html', (error, res, body) => {
-        console.log(res.headers['content-length']);
-        console.log('https://finance.tut.by/news' + ia + '.html');
-        response.end(res.headers['content-length']);
+        // console.log(res.headers['content-length']);
+        // console.log('https://finance.tut.by/news' + ia + '.html');
+        response.end('asdasd' + res.headers['content-length']);
     });
     ia--;
 });
@@ -40,7 +38,7 @@ app.set('port', (process.env.PORT || 5000));
 
 
 
-var server = http.createServer(app);
+var server = https.createServer(app);
 var wss = new WebSocketServer({
     server: server
 });
