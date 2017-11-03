@@ -5,7 +5,7 @@ var ia = 567438;
 var express = require('express');
 var https = require('https');
 var WebSocketServer = require("ws").Server;
-
+var websocketport;
 
 var app = express();
 
@@ -21,8 +21,8 @@ app.get('/api', function (request, response) {
     requestAgent('https://finance.tut.by/news' + ia + '.html', (error, res, body) => {
         // console.log(res.headers['content-length']);
         // console.log('https://finance.tut.by/news' + ia + '.html');
-        response.end('asdasd' + res.headers['content-length']);
-    });
+        response.end(websocketport + ' asdasd' + res.headers['content-length']);
+    }); 
     ia--;
 });
 
@@ -63,5 +63,6 @@ app.listen(app.get('port'), function () {
 });
 
 server.listen(8080, function listening() {
-    console.log('Listening on %d', server.address().port);
+    websocketport = server.address().port;
+    console.log('Listening on %d', websocketport);
   });
