@@ -7,6 +7,6 @@ app.get('/', function(request, response) {
   response.end('hello');
 });
 
-app.listen(app.get('port2'), function() {
+app.listen(app.get('port'), function() {
   console.log('Node app is running on port', app.get('port'));
 });
