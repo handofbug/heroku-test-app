@@ -7,6 +7,7 @@ var http = require('http');
 var WebSocketServer = require("ws").Server;
 var websocketport;
 
+
 var app = express();
 
 var requestAgent = require('request');
@@ -18,9 +19,8 @@ app.get('/', function (request, response) {
 });
 
 app.get('/api', function (request, response) {
-    requestAgent('http://byfly.by/', (error, res, body) => {
-        console.log(res.headers['content-length']);
-        response.end(websocketport + ' asdasd' + res.headers['content-length']);
+    requestAgent('https://www.google.by/', (error, res, body) => {
+        response.end(JSON.stringify(res.headers));
     }); 
     ia--;
 });
@@ -44,7 +44,9 @@ var wss = new WebSocketServer({
 
 wss.on("connection", function (ws) {
     var id = setInterval(function () {
-
+        requestAgent('https://www.google.by/', (error, res, body) => {
+            ws.send(JSON.stringify(res.headers));
+        }); 
         
         ws.send(JSON.stringify(new Date()), function () {});
     }, 3000);
@@ -57,11 +59,11 @@ wss.on("connection", function (ws) {
     });
 });
 
-app.listen(app.get('port'), function () {
-    console.log('Node app is running on port', app.get('port'));
-});
+// app.listen(app.get('port'), function () {
+//     console.log('Node app is running on port', app.get('port'));
+// });
 
-server.listen((process.env.PORT2 || 8080), function listening() {
+server.listen(app.get('port'), function listening() {
     websocketport = server.address().port;
     console.log('Listening on %d', websocketport);
   });
