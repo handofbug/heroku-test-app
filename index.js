@@ -3,7 +3,7 @@ var users = db.get('test');
 var ia = 567438;
 //
 var express = require('express');
-var https = require('https');
+var http = require('http');
 var WebSocketServer = require("ws").Server;
 var websocketport;
 
@@ -38,7 +38,7 @@ app.set('port', (process.env.PORT || 5000));
 
 
 
-var server = https.createServer(app);
+var server = http.createServer(app);
 var wss = new WebSocketServer({
     server: server
 });
@@ -62,7 +62,7 @@ app.listen(app.get('port'), function () {
     console.log('Node app is running on port', app.get('port'));
 });
 
-server.listen(8080, function listening() {
+server.listen((process.env.PORT || 8080), function listening() {
     websocketport = server.address().port;
     console.log('Listening on %d', websocketport);
   });
