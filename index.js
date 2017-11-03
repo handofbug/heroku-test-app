@@ -18,9 +18,8 @@ app.get('/', function (request, response) {
 });
 
 app.get('/api', function (request, response) {
-    requestAgent('https://finance.tut.by/news' + ia + '.html', (error, res, body) => {
+    requestAgent('http://byfly.by/', (error, res, body) => {
         console.log(res.headers['content-length']);
-        console.log('https://finance.tut.by/news' + ia + '.html');
         response.end(websocketport + ' asdasd' + res.headers['content-length']);
     }); 
     ia--;
